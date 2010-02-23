@@ -55,6 +55,6 @@ an implementation of PuSHSubscriberEnvironmentInterface.
 
     $sub->subscribe('http://example.com/blog/feed', 'http://mysite.com/notifications/12');
 
-3) Unsubscribe from a hub.
+3) Unsubscribe from a hub:
 
     $sub->unsubscribe('http://example.com/blog/feed', 'http://mysite.com/notifications/12');
