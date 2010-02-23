@@ -32,7 +32,7 @@ subscription. For example:
       $sub->handleRequest('my_pubsub_notification');
     }
 
-4) Note the 'my_pubsub_notification' parameter in the previous point? This is
+4) Note the 'my_pubsub_notification' passed to the request handler? This is
 the callback that will be invoked if a notification has been received:
 
     function my_pubsub_notification($raw) {
