@@ -13,7 +13,7 @@ PHP 5.2 or higher with curl support.
 ##Integration with host applications
 
 Before you can start using the PuSHSubscriber library you need to prepare your
-host application following the next four steps:
+host application following these four steps:
 
 1) Implement PuSHSubscriberSubscriptionInterface and
 PuSHSubscriberEnvironmentInterface (see PuSHSubscriber.inc).
@@ -25,8 +25,9 @@ subscription. For example:
 
 3) In the callback for the new path invoke the subscriber's request handler:
 
+    // MySubscription and MyEnvironment are the interfaces implemented in 1)
     function my_pubsub_page($subscription_id) {
-      $sub = PuSHSubscriber::instance('my_subs', $subscription_id, 'MySubscriptions', new Environment());
+      $sub = PuSHSubscriber::instance('my_subs', $subscription_id, 'MySubscription', new MyEnvironment());
       $sub->handleRequest('my_pubsub_notification');
     }
 
@@ -40,12 +41,14 @@ the callback that will be invoked if a notification has been received:
 
 ##Usage
 
-1) Create a PuSHSubscriber:
+1) Create a subscription:
 
-    $sub = PuSHSubscriber::instance('my_subs', 12, 'MySubscriptions', new Environment());
+    $sub = PuSHSubscriber::instance('my_subs', 12, 'MySubscription', new MyEnvironment());
 
 Note: The domain id 'my_subs' is merely for allowing multiple tiers in an
-application to use the PuSHSubscriber library.
+application to use the PuSHSubscriber library simultaneously. MySubscription
+is an implementation of PuSHSubscriberSubscriptionInterface and MyEnvironment is
+an implementation of PuSHSubscriberEnvironmentInterface.
 
 2) Subscribe to a hub for notifications:
 
