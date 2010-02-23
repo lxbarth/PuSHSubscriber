@@ -1,8 +1,9 @@
 
 #PuSH Subscriber
 
-A framework independent PHP library that implements the
+A PHP library that implements the
 [PubSubHubbub](http://code.google.com/p/pubsubhubbub/) spec for subscribers.
+Framework independent.
 
 
 ##Requirements
