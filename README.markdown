@@ -22,21 +22,23 @@ PuSHSubscriberEnvironmentInterface (see PuSHSubscriber.inc).
 2) Create a new path in the host application that is unique for every
 subscription. For example:
 
-    (http://mysite.com/)pubsub/[subscription_id]
+    (http://mysite.com/)pubsub/[subscriber_id]
 
 3) In the callback for the new path invoke the subscriber's request handler:
 
     // MySubscription and MyEnvironment are the interfaces implemented in 1)
     function my_pubsub_page($subscription_id) {
-      $sub = PuSHSubscriber::instance('my_subs', $subscription_id, 'MySubscription', new MyEnvironment());
+      $domain = 'my_subs';
+      $sub = PuSHSubscriber::instance($domain, $subscriber_id, 'MySubscription', new MyEnvironment());
       $sub->handleRequest('my_pubsub_notification');
     }
 
 4) Note the 'my_pubsub_notification' passed to the request handler? This is
 the callback that will be invoked if a notification has been received:
 
-    function my_pubsub_notification($raw) {
-      // Parse and store the changed items.
+    function my_pubsub_notification($raw, $domain, $subscriber_id) {
+      // Parse $raw and store the changed items for the subscription identified
+      // by $domain and $subscriber_id
     }
 
 
