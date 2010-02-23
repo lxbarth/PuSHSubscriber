@@ -1,20 +1,22 @@
 
 #PuSH Subscriber
 
-A PHP library for [PubSubHubbub](http://code.google.com/p/pubsubhubbub/)
-subscribers.
+A framework independent PHP library that implements the
+[PubSubHubbub](http://code.google.com/p/pubsubhubbub/) spec for subscribers.
 
-Requires PHP 5.2 or higher with curl support.
 
-##Introduction
+##Requirements
 
-The PuSHSubscriber library is a framework independent PHP library that
-implements the PubSubHubbub spec for subscribers.
+PHP 5.2 or higher with curl support.
 
-###Integration with host applications
+
+##Integration with host applications
+
+Before you can start using the PuSHSubscriber library you need to prepare your
+host application following the next four steps:
 
 1) Implement PuSHSubscriberSubscriptionInterface and
-PuSHSubscriberEnvironmentInterface.
+PuSHSubscriberEnvironmentInterface (see PuSHSubscriber.inc).
 
 2) Create a new path in the host application that is unique for every
 subscription. For example:
@@ -36,7 +38,7 @@ the callback that will be invoked if a notification has been received:
     }
 
 
-###Usage
+##Usage
 
 1) Create a PuSHSubscriber:
 
