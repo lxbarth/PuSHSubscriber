@@ -68,7 +68,6 @@ class PuSHSubscriber {
    *   at $url.
    */
   public function subscribe($url, $callback_url, $hub = '') {
-    feeds_dbg(func_get_args());
     // Fetch document, find rel=hub and rel=self.
     // If present, issue subscription request.
     $request = curl_init($url);
@@ -76,14 +75,17 @@ class PuSHSubscriber {
     curl_setopt($request, CURLOPT_RETURNTRANSFER, TRUE);
     $data = curl_exec($request);
     if (curl_getinfo($request, CURLINFO_HTTP_CODE) == 200) {
-      $xml = new SimpleXMLElement($data);
-      $xml->registerXPathNamespace('atom', 'http://www.w3.org/2005/Atom');
-      if (empty($hub) && $hub = @current($xml->xpath("//atom:link[attribute::rel='hub']"))) {
-        $hub = (string) $hub->attributes()->href;
+      try {
+        $xml = new SimpleXMLElement($data);
+        $xml->registerXPathNamespace('atom', 'http://www.w3.org/2005/Atom');
+        if (empty($hub) && $hub = @current($xml->xpath("//atom:link[attribute::rel='hub']"))) {
+          $hub = (string) $hub->attributes()->href;
+        }
+        if ($self = @current($xml->xpath("//atom:link[attribute::rel='self']"))) {
+          $self = (string) $self->attributes()->href;
+        }
       }
-      if ($self = @current($xml->xpath("//atom:link[attribute::rel='self']"))) {
-        $self = (string) $self->attributes()->href;
-      }
+      catch (Exception $e) {}
     }
     curl_close($request);
     // Fall back to $url if $self is not given.
