@@ -267,7 +267,7 @@ class PuSHSubscriber {
     else {
       $sub->status = $mode .' failed';
       $sub->save();
-      $this->log("Error issuing \"$mode\" request ($code).", 'error');
+      $this->log("Error issuing \"$mode\" request to $hub ($code).", 'error');
     }
     curl_close($request);
   }
