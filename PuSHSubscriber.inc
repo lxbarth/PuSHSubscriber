@@ -276,7 +276,7 @@ class PuSHSubscriber {
    * Helper for loading a subscription.
    */
   protected function loadSubscription() {
-    return call_user_func("{$this->subscription_class}::load", $this->domain, $this->subscriber_id);
+    return call_user_func(array($this->subscription_class, 'load'), $this->domain, $this->subscriber_id);
   }
 
   /**
